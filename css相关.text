@@ -1,0 +1,70 @@
+1.清除浮动，什么时候需要清除浮动，清除浮动都有哪些方法
+
+
+2.如何保持浮层水平垂直居中
+
+
+3.position 和 display 的取值和各自的意思和用法
+
+
+4.样式的层级关系，选择器优先级，样式冲突，以及抽离样式模块怎么写，说出思路，有无实践经验
+
+5.盒子模型
+
+6.CSS继承性
+
+7.CSS3的新特性
+   个体特效：
+  （1）CSS3实现圆角（border-radius:8px）
+  （2）阴影（box-shadow:10px）
+  （3）对文字加特效（text-shadow、），线性渐变（gradient）
+   过渡特效：
+  （4）旋转（transform）
+  新增了选择器：伪类选择器
+  新加入的特性为了让样式效果更佳丰富多彩，同时在元素过渡的时候更佳平滑些，不会显得很突兀。
+
+8.icon的使用
+
+9.手淘的实现
+
+10.盒子模型
+   ie盒子和W3C盒子。IE低版本（5,6）对于width的理解和w3c不同：
+   ie:width = content + padding + border;
+   w3c: width = content;
+
+11.CSS 选择器有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？
+    1.id选择器（ # myid）
+    2.类选择器（.myclassname）
+    3.标签选择器（div, h1, p）
+    4.相邻选择器（h1 + p）
+    5.子选择器（ul > li）
+    6.后代选择器（li a）
+    7.通配符选择器（ * ）
+    8.属性选择器（a[rel = "external"]）
+    9.伪类选择器（a: hover, li: nth - child）
+
+    可继承的样式： font-size font-family color, UL LI DL DD DT;
+    不可继承的样式：border padding margin width height ;
+
+    优先级：important > 内联 > id > class > 标签
+
+    p:first,p:last,p:not(last) p:nth-child(num) :checked 
+
+12.文档流
+
+13.列出display的值，说明他们的作用。position的值， relative和absolute定位原点是？
+      block 象块类型元素一样显示。
+      none 缺省值。象行内元素类型一样显示。
+      inline-block 象行内元素一样显示，但其内容象块类型元素一样显示。
+      list-item 象块类型元素一样显示，并添加样式列表标记。
+
+   absolute
+   原点：生成绝对定位的元素，相当于第一个非static类型父级元素进行地位，所有标签默认为是static。
+   relative
+   原点：相对定位，当前所处的位置为原点。
+
+ 14.用过媒体查询，针对移动端的布局吗？
+
+    
+
+

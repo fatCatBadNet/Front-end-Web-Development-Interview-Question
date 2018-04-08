@@ -1,1 +1,59 @@
 这里是html相关的资料
+1.Doctype作用？标准模式与兼容模式各有什么区别?
+（1）、<!DOCTYPE>声明位于位于HTML文档中的第一行，处于 <html> 标签之前。
+告知浏览器的解析器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。
+（2）、标准模式的排版 和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。
+
+提前申明，提前告知游览器解析文档的标准。
+标准模式和兼容模式，其实就是强调游览器的上限和下限。
+标准模式下游览器的上限以游览器支持的最高标准来运行。
+兼容模式下游览器的下限以游览器所能支撑的最老的游览器去解析文档。
+
+2.HTML5 为什么只需要写 <!DOCTYPE HTML>？
+HTML5 不基于SGML（比较老的标记语言，XHTML和HTML4.1都是基于这个标准去做的）,不依赖DTD的引用，
+写一个申明就好了。
+
+3.行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？
+（1）行内元素有：a b span img input select strong（强调的语气）
+（2）块级元素有：div ul ol li dl dt dd h1 h2 h3 h4…p
+ 常见的空元素： <br> <hr> <img> <input> <link> <meta>
+
+ 4.页面导入样式时，使用link和@import有什么区别？
+ （1）拓展性：import专职CSS。link还可以处理一些其他事物。
+          比如<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+          icon的引入。
+
+ （2）link作为标签，js通过dom操作捕获到的，后者不行。
+  (3) 加载顺序上：link页面载入时同时加载，后者等页面加载完以后再加载。
+  (4) link兼容性上比后者优秀。
+
+5.浏览器的内核分别是什么?
+  IE浏览器的内核Trident、Mozilla的Gecko、Chrome的Blink（WebKit的分支）、Opera内核原为Presto，现为Blink；
+
+6.html5有哪些新特性、移除了那些元素？
+  如何处理HTML5新标签的浏览器兼容问题？
+  如何区分 HTML 和HTML5？
+  （1）主要是关于图像，位置，存储，多任务等功能的增加。
+       具体：canvas。了解，但是不常用。
+            localStorage 关闭游览器依然可以存储的数据，sessionStorage关闭游览器后删除。
+            语义化标签。article、footer、header、nav、section
+            新的技术webworker, websockt, Geolocation
+
+7.iframe有那些缺点？
+
+8.请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+
+9.如何实现浏览器内多个标签页之间的通信? 
+通信也是js去实现的。
+主要用的就是sessionStorage，localStorage中的storage事件，一旦有操作，storage事件就会被通知。
+
+
+
+
+
+
+
+
+
+
+
