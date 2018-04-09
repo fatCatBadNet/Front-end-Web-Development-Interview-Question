@@ -31,6 +31,7 @@
    ie盒子和W3C盒子。IE低版本（5,6）对于width的理解和w3c不同：
    ie:width = content + padding + border;
    w3c: width = content;
+   需要注意的是：js中的dom.offsetWidth获取的 content+border + padding并非CSS里的width
 
 11.CSS 选择器有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有那些？
     1.id选择器（ # myid）
