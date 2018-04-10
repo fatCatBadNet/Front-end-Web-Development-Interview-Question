@@ -1,0 +1,60 @@
+1.侧边弹窗问题，侧边弹窗在IOS下正常工作，但是在安卓机表现为可弹出，但是无法收回？但是上一个版本一切都还正常。
+因为这个侧边弹窗引用的是MUI框架里的一个组件，而且过去可以现在不行，给我第一反应是，
+框架更新了，调用方法也更新了，问题会不会出在这里？比对了现框架的版本和最新版后发现，果然是，
+框架确实更新。重新去官网熟读了一下组件的调用方法，在原来基础上做了一些微调。奇迹!!!!!
+并没有出现...没啥卵用。
+但是在反复的调试中出现了一个奇怪的现象，每当我保存一次文件，手机会刷新一次，这个时候就好了，就OK了，
+bug就不见了。
+针对现象可以做出一些推测和判断：
+首先通过再次保存功能得以完成实现，那么可以确认一点的是，这个功能本身是完毕的。
+但是针对安卓机型首次进来不能关闭的现象，我们推断在这个功能初始化的时候可能出现了一些问题，
+导致走不通。
+更深一点的推断，这个功能在首次初始化的时候并没有完整的走完，才会再保存后二次初始化成功了。
+mui的侧边弹窗的API是 mui().offCanvas()，在mui.js的源码里可以看到offCanvas是有一次init初始化
+在init里有一个refresh，而问题就出在这里了。
+对比IOS和PC端正常运行页面来看，提取mui.js里相关核心代码，整个运作流程大致如下：
+初始化过程执行一次refresh，refresh中核心代码：
+//初始化宽度
+this.offCanvasRightWidth = this.offCanvasLeftWidth = 0;
+//赋值保存侧边容器宽度
+this.offCanvasRightWidth = this.offCanvasRight.offsetWidth;
+
+show时执行：
+//侧边容器保存新的变量名
+this.offCanvas = this.offCanvasRight;
+//初始化保存的侧边容器宽度 赋值给新的变量名保存
+this.offCanvasWidth = this.offCanvasRightWidth;
+//-100判断迁移方向为向右，
+openPercentage（-100）
+//openPercentage 中执行左移
+p = p === 0 ? 1 : 0; //p 为-100
+this.updateTranslate(this.offCanvasRightWidth * p);
+
+close时执行：
+//再一次保存容器宽度（前面已经操作过一次，这里再操作一次的意义何在，没明白）
+this.offCanvasWidth = this.offCanvas.offsetWidth;
+//功能同show
+openPercentage（0）
+p = p === 0 ? 1 : 0; //p 为1
+this.updateTranslate(this.offCanvasRightWidth * p);
+
+所以问题明朗了：没又关闭就是因为this.updateTranslate没执行或者参数不正确，传值为固定，
+那么问题出在this.offCanvasRightWidth上，这个值最早被赋值是在refresh中，打印发现在安卓
+机型下this.offCanvasRightWidth打印为0，也就是说this.offCanvasRight.offsetWidth为0，
+什么意思？打印this.offCanvasRight确实为dom，但是取值为0，相比IOS和PC上这里皆值，这里
+因为在手机上无具体观察this.offCanvasRight的内容。
+值得注意的是在show方法中this.offCanvasRight.offsetWidth 和 this.offCanvasRightWidth的
+值是不一样。this.offCanvasRight.offsetWidth有值，所以解决方法也变得很简单了，直接在代码中
+在执行一次refresh就好了。解决这个问题很简单，但是找出根本原因很麻烦。
+因为不能打印具体节点，不好寻找根源，主要面临问题：
+1.mui中offCanvas()函数初始化何时执行的？
+PC端的页面单独加载时，mui中offCanvas()中的函数会被触发，为何被触发？找到根源函数
+2.show函数中，this.offCanvasRight.offsetWidth 和 this.offCanvasRightWidth值不同为什么？
+这个可以解释，this.offCanvasRightWidth最早在refresh函数中被赋值，是一个数字，并非对象，不是引用
+的关系，所以不等。
+
+针对这样的bug我对框架中几处地方提出一点质疑吧：
+1.在close函数中已经做了this.offCanvasWidth = this.offCanvas.offsetWidth,那么this.offCanvasWidth
+肯定是最新的数据，所以openPercentage中是不是是应该用this.offCanvasWidth更合适一些，
+采用this.offCanvasRightWidth的数据已然不是最新的了。
+
