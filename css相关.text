@@ -66,6 +66,25 @@
 
  14.用过媒体查询，针对移动端的布局吗？
 
+ 15. 清除浮动的方式，提供尽可能多的方案?
+
+ 16.如何用css实现一个div的一秒内向右平滑移动100px的动画 ?
+ <div class="test"></div>
+ .test{
+   width:100px;
+   height:100px;
+   position: relative;  // 这句很重要，没它跑不动
+   animation: testMove 1s;
+ }
+ @keyframes testMove { 
+   from{left: 20px} 
+   to{left: 100px} 
+  }
+ 
+  17. 一个div，宽度是100px，此时设置padding是20px，添加一个什么css属性可以让div的实际宽度仍然保持在100px，而不是140px？
+  box-sizing:border-box;
+  兼容写法：-webkit-box-sizing: border-box; -moz-box-sizing: border-box;
+  CSS3新属性，可以一直兼容到IE8
     
 
 

@@ -1,10 +1,33 @@
 2. JavaScript 基础
 
 1）JavaScript 里有哪些数据类型，解释清楚 null 和 undefined，解释清楚原始数据类型和引用数据类型。比如讲一下 1 和 Number(1) 的区别
+基本数据类型：1.字符串(String)
+             2.数字（Num）
+             3.布尔(boolean)
+             4.数组(Arr)
+             5.对象(Object)
+             6.Null
+             7.Undefined
+ null 和 undefined :
+ 简单来说，对一个没有被创建的变量进行访问的时，得到undefined，未被定义。
+          对一个已被创建但是没有赋值的变量访问时，它是一个空指针，那么就是null。
+原始数据类型：string，number，boolean，null，undfined
+引用数据类型：object,Arr,data
+原始数据类型就是简单的数据段，几行数字，几行字符串。后者就是对象。
+我的理解，确确实实已知的就是原始数据类型，充满变数的，就是引用数据类型。
+1 就是普通的属于number类型的数字，Number（1）则是一个包装过后的对象。
 
 2）将一下 prototype 是什么东西，原型链的理解，什么时候用 prototype
 
 3）函数里的this什么含义，什么情况下，怎么用。
+首先this只会出现在函数里，this也只会指向调用这个函数的对象。
+什么情况下：
+函数被创建时是不会立刻自执行的，所以是一个等待被调用的状态。所以this什么情况下
+会被用，也就是函数什么会被调用。
+1.纯粹的执行函数。这个时候函数通常指向window。
+2.作为对象的方法。这个时候指向这个对象。
+3.作为构造函数被实例化，这个时候指向被new出来的新对象。
+4.通过apply或call被别的对象调用，指向apply中的第一个参数。
 
 3）apply 和 call 什么含义，什么区别？什么时候用。
 
@@ -21,3 +44,38 @@
 4）说一下了解的js 设计模式，解释一下单例、工厂、观察者。
 
 5）ajax 跨域有哪些方法，jsonp 的原理是什么，如果页面编码和被请求的资源编码不一致如何处理？
+
+4.web workers是什么，为什么我们需要web workers？
+
+4.JavaScript 应用
+1.function person() {
+                return this.name;
+            }
+var someOne = {
+                name: 'Jenny',
+                age: 18
+            };
+如何通过person输出jenny？
+console.log(person.call(someOne));
+console.log(person.apply(someOne));
+//考察call，知道call和apply两个API很简单
+
+2.有一个合法的 JSON 对象（即不包含函数等值的对象），设计一个函数，
+取出该对象内所有 key 为 "id" 并且其值不为对象、数组的值，装入一个数组并返回。
+function extractIds(data) {
+    // implement
+}
+样例数据：
+var data = {
+    id: 1,
+    items: [
+        { id: 2 },
+        { item: 3, id: [
+            { id: 4 },
+            { id: 5 }
+        ]}
+    ]
+};
+
+extractIds(data); // should return [ 1, 2, 4, 5 ]
+
