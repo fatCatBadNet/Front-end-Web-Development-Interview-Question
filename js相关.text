@@ -30,18 +30,36 @@
 4.通过apply或call被别的对象调用，指向apply中的第一个参数。
 
 3）apply 和 call 什么含义，什么区别？什么时候用。
+apply和call功能是一样的，唯一的区别就是传参的方式不同。
+call接受的参数列表，apply二十将参数包装成数组的形式传递。
+通过冒充其他函数的对象来间接调用这个函数，同时也改变函数体内this的指向。
+增加Arry.prototype.slice.apply(domList)解释下；
 
-4）数组和对象有哪些原生方法，列举一下，分别是什么含义，比如链接两个数组用哪个方法，删除数组的质定项。
+4）数组和对象有哪些原生方法，列举一下，分别是什么含义，比如链接两个数组用哪个方法，删除数组的指定项。
+数组方面:
+赋值方法：会改变数组本身：push，pop，shift,unshift,splice，reverse，sort等
+访问方法：不会改变数组本身：concat ,join slice toString indexOf 
+遍历方法:
+forEach map every some reduce reduceRight
+性能上的差异：forEach和for对比的话，for的性能远优于前者
+
+对象：https://blog.csdn.net/kongjunchao159/article/details/70053563
+
+
 
 3. JavaScript 的面向对象
 
 1）JS 模块包装格式都用过哪些，CommonJS、AMD、CMD、KMD。定义一个JS 模块代码，最精简的格式是怎样。
+基于不同的语法规则下有AMD和CMD，CommonJS，requireJS,ES6，webpack。
+https://www.cnblogs.com/snandy/archive/2012/03/08/2378441.html
 
 2）JS 怎么实现一个类。怎么实例化这个类。
+http://www.ruanyifeng.com/blog/2012/07/three_ways_to_define_a_javascript_class.html
 
 3）是否了解自定义事件。jQuery里的fire函数是什么意思，什么时候用。
 
 4）说一下了解的js 设计模式，解释一下单例、工厂、观察者。
+http://www.ruanyifeng.com/blog/2010/05/object-oriented_javascript_encapsulation.html
 
 5）ajax 跨域有哪些方法，jsonp 的原理是什么，如果页面编码和被请求的资源编码不一致如何处理？
 
