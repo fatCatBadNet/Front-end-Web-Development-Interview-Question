@@ -45,7 +45,69 @@ forEach map every some reduce reduceRight
 
 对象：https://blog.csdn.net/kongjunchao159/article/details/70053563
 
+5)什么是立即执行函数？使用立即执行函数的目的是什么？
+立即执行函数：
+又叫做匿名函数自执行。
+1.第一匿名 2.立即执行
+格式:
+(function(){})()
+为什么要在函数外围加一对括号？防止游览器报错。
+这也只是一种形式：
+(function(){alert('我是匿名函数')} ()) // 用括号把整个表达式包起来
+(function(){alert('我是匿名函数')}) () //用括号把函数包起来
+!function(){alert('我是匿名函数')}() // 求反，我们不在意值是多少，只想通过语法检查。
++function(){alert('我是匿名函数')}()
+-function(){alert('我是匿名函数')}()
+~function(){alert('我是匿名函数')}()
+void function(){alert('我是匿名函数')}()
+new function(){alert('我是匿名函数')}()
+以上都会自执行一个函数。
 
+自执行函数的作用：产生一个独立的作用域。
+经典问题：
+var liList = ul.getElementsByTagName('li')
+for(var i=0; i<6; i++){
+  liList[i].onclick = function(){
+    alert(i) // 为什么 alert 出来的总是 6，而不是 0、1、2、3、4、5
+  }
+}
+出现一个问题：i持续为6？为什么？
+这个i是贯穿整个作用域的，在for之后的访问到的i都是6。
+解决方案：
+1.
+for(var i=0; i<6; i++){
+  (function(index){
+      liList[index].onclick = function(){
+      alert(index) 
+  }
+  })(i)
+}
+这样就可以把变量驻留在一个独立的作用域内。
+
+2.将var替换成let。
+let声明的变量只在其声明的块或子块中可用，
+这一点，与var相似。二者之间最主要的区别在于var声明的变量的作用域是整个封闭函数。
+所以在for循环中let的变量每一轮结束都回被销毁，然后创建新的变量。
+
+6）async/await 语法了解吗？目的是什么？
+同 Generator 函数一样，async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。当函数执行的时候，
+一旦遇到 await 就会先返回，等到触发的异步操作完成，再接着执行函数体内后面的语句。
+
+async function getStockPriceByName(name) {
+  var symbol = await getStockSymbol(name);
+  var stockPrice = await getStockPrice(symbol);
+  return stockPrice;
+}
+
+getStockPriceByName('goog').then(function (result){
+  console.log(result);
+});
+
+使用方法：
+1.在一个普通函数前面加上async关键字
+2.一旦遇到await就会停止执行，直到异步操作执行完成了，再继续往下走。
+3.最后返回一个pormise对象
+目的：就是为了解决异步太多的问题，也叫回调地狱。目前是ES7的语法。
 
 3. JavaScript 的面向对象
 
@@ -96,4 +158,46 @@ var data = {
 };
 
 extractIds(data); // should return [ 1, 2, 4, 5 ]
+
+3.js内存泄漏问题？
+垃圾回收机制？
+顾名思义就是判断一个内存是否为垃圾的标准。
+在语言引擎里有一张引用表，这张表用来保存内存的引用次数，当一个内存的引用次数为零，
+那么就把它当垃圾回收了，然后释放它占用的内存。
+
+什么是内存泄漏？
+当一个内存，并不再被需要，但是它的引用次数却不为0，这个时候根据垃圾回收机制是无法
+释放这个内存的。如此下去，垃圾占用了越来越多的内存，就引发了泄漏。
+简单说：一个内存不再被使用但是又无法回收的情况下。
+
+哪些操作会造成内存泄露？
+1.全局变量。一个全局变量除非通过null手动释放，否则不会回收。
+2.闭包引起的内存泄露
+3.定时器
+
+4.为什么要深拷贝？如何实现深拷贝？
+为什么？JS将一个变量赋值给另一个变量的时候，实际两变量都是指向一个地址栏的，
+那么其中一个变量修改了属性或者方法的时候，另一个也会受到影响。深拷贝就是为了解决
+这个问题。
+解决方案：
+1.三方库Underscore里有一个_.clone(需要拷贝的对象);
+
+5.事件绑定？事件监听？事件委托？
+对特定的dom触发的事件绑定相应的函数。
+addEventListner监听
+委托，通过冒泡原理，将事件绑定到他的父级委托上一级。
+
+XSS攻击？
+跨站脚本攻击。
+消毒（对危险字符进行转义）和HttpOnly（防范XSS攻击者窃取Cookie数据）
+ 
+CSRF攻击（Cross Site Request Forgery，跨站请求伪造
+
+在表单中添加令牌（token）；（2）验证码；（3）检查请求头中的Referer
+
+6.作用域内的函数和变量名提升问题
+
+
+
+
 

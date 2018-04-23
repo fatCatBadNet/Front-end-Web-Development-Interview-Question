@@ -85,6 +85,9 @@
   box-sizing:border-box;
   兼容写法：-webkit-box-sizing: border-box; -moz-box-sizing: border-box;
   CSS3新属性，可以一直兼容到IE8
+
+  18.如何清除浮动？
+  
     
 
 
